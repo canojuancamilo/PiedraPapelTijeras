@@ -37,13 +37,16 @@ namespace BackendPiendraPapelTijeras.Controllers
             }
         }
 
-        [HttpPost("RegistrarTurno/{idPartida}/{IdjugadorGanador}")]
-        public IActionResult PostRegistrarTurno(int idPartida, int IdjugadorGanador)
+        [HttpPost("RegistrarTurno")]
+        public IActionResult PostRegistrarTurno([FromBody] PostTurno model)
         {
             try
             {
-                _piedraPapelTijeraService.RegistrarTurnoPartida(idPartida, IdjugadorGanador);
-                List<ResultadoJugador> resultados = _piedraPapelTijeraService.obtenerResultadosPartida(idPartida);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                _piedraPapelTijeraService.RegistrarTurnoPartida(model.IdPartida, model.IdJugadorGanador);
+                List<ResultadoJugador> resultados = _piedraPapelTijeraService.obtenerResultadosPartida(model.IdPartida);
 
                 return Ok(resultados);
             }

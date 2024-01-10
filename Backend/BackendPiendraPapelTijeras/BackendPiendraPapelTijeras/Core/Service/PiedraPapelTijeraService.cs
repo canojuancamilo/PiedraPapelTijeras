@@ -29,7 +29,7 @@ namespace BackendPiendraPapelTijeras.Core.Service
                 int perdidas = turnos.Where(m => m.IdJugadorGanador != null && m.IdJugadorGanador != turno?.FirstOrDefault()?.IdJugadorGanador).Count();
 
                 resultados.Add(new ResultadoJugador() {
-                    Idjugador = turno?.FirstOrDefault()?.IdJugadorGanador ?? 0,
+                    IdJugador = turno?.FirstOrDefault()?.IdJugadorGanador ?? 0,
                     Nombre = turno?.FirstOrDefault()?.Ganador.Nombre ?? string.Empty,
                     TurnosGanados = victorias,
                     TurnosEmpatados = empates,
@@ -48,9 +48,20 @@ namespace BackendPiendraPapelTijeras.Core.Service
             return jugadores;
         }
 
-        public void RegistrarTurnoPartida(int idPartida, int idJugadorGanador)
+        public void RegistrarTurnoPartida(int idPartida, int? idJugadorGanador)
         {
+            Partida partida = _piedraPapelTijeraRepository.obtenerDetallePartida(idPartida);
+
+            if (partida.Ganador != 0 && partida.Ganador != null)
+                throw new InvalidOperationException($"La partida ya fue finalizada.");
+
             _piedraPapelTijeraRepository.RegistrarTurnoPartida(idPartida, idJugadorGanador);
+
+            List<ResultadoJugador> resultados = this.obtenerResultadosPartida(idPartida);
+            int partidasGanadasJugador = resultados?.FirstOrDefault(m=> m.IdJugador == (idJugadorGanador ?? 0))?.TurnosGanados ?? 0;
+
+            if (partidasGanadasJugador >= 3)
+                _piedraPapelTijeraRepository.ActualizarPartida(idPartida, idJugadorGanador??0);
         }
     }
 }

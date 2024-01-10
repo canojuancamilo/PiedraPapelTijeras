@@ -44,15 +44,30 @@ namespace BackendPiendraPapelTijeras.Core.Repository
             return jugadores;
         }
 
-        public void RegistrarTurnoPartida(int idPartida, int idJugadorGanador)
+        public void RegistrarTurnoPartida(int idPartida, int? idJugadorGanador)
         {
             _dbContext.Turnos.Add(new Turno()
             {
                 IdPartida = idPartida,
-                IdJugadorGanador = idJugadorGanador
+                IdJugadorGanador = idJugadorGanador,
+                FechaRegistro = DateTime.Now
             });
 
             _dbContext.SaveChanges();
+        }
+
+        public void ActualizarPartida(int idPartida, int idJugadorGanador)
+        {
+            Partida partida = _dbContext.Partidas?.FirstOrDefault(m => m.IdPartida == idPartida) ?? new Partida() { };
+
+            partida.Ganador = idJugadorGanador;
+
+            _dbContext.SaveChanges();
+        }
+
+        public Partida obtenerDetallePartida(int idPartida)
+        {
+            return _dbContext.Partidas?.FirstOrDefault(m => m.IdPartida == idPartida) ?? new Partida() { };
         }
     }
 }

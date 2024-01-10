@@ -9,6 +9,6 @@ namespace BackendPiendraPapelTijeras.Core.Interface.Services
 
         public List<ResultadoJugador> obtenerResultadosPartida(int idPartida);
 
-        public void RegistrarTurnoPartida(int idPartida, int idJugadorGanador);
+        public void RegistrarTurnoPartida(int idPartida, int? idJugadorGanador);
     }
 }
