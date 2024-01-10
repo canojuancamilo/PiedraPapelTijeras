@@ -7,6 +7,7 @@ namespace BackendPiendraPapelTijeras.Core.Interface.Repositories
     {
         public Partida RegistrarInicioPartida();
         public List<Jugador> RegistrarJugadoresPartida(int idPartida, string jugador1, string jugador2);
+        public void RegistrarTurnoPartida(int idPartida, int idJugadorGanador);
         public List<Turno> ObtenerTurnosPartida(int idPartida);
     }
 }

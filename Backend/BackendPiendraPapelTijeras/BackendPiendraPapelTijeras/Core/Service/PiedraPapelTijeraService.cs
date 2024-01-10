@@ -47,5 +47,10 @@ namespace BackendPiendraPapelTijeras.Core.Service
 
             return jugadores;
         }
+
+        public void RegistrarTurnoPartida(int idPartida, int idJugadorGanador)
+        {
+            _piedraPapelTijeraRepository.RegistrarTurnoPartida(idPartida, idJugadorGanador);
+        }
     }
 }

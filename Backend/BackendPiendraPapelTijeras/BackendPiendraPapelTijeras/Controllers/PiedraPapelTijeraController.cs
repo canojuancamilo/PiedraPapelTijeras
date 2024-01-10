@@ -37,17 +37,33 @@ namespace BackendPiendraPapelTijeras.Controllers
             }
         }
 
-        [HttpGet("ResultadoPartida")]
-        public IActionResult GetResultadoPartida([FromBody] IniciarPartida model)
+        [HttpPost("RegistrarTurno/{idPartida}/{IdjugadorGanador}")]
+        public IActionResult PostRegistrarTurno(int idPartida, int IdjugadorGanador)
+        {
+            try
+            {
+                _piedraPapelTijeraService.RegistrarTurnoPartida(idPartida, IdjugadorGanador);
+                List<ResultadoJugador> resultados = _piedraPapelTijeraService.obtenerResultadosPartida(idPartida);
+
+                return Ok(resultados);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("ResultadoPartida/{idPartida}")]
+        public IActionResult GetResultadoPartida(int idPartida)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                List<Jugador> jugadores = _piedraPapelTijeraService.RegistrarInicioPartida(model.PrimerJugador, model.SegundoJugador);
+                List<ResultadoJugador> resultados = _piedraPapelTijeraService.obtenerResultadosPartida(idPartida);
 
-                return Ok(jugadores);
+                return Ok(resultados);
             }
             catch (Exception ex)
             {
