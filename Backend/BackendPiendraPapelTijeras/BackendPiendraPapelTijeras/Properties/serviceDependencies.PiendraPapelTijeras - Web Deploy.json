@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/PiendraPapelTijeras/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsConexionSql_3CEECE8899",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/camilo/databases/PiendraPapelTijeras",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:ConexionSql",
+      "dynamicId": null
+    }
+  }
+}
