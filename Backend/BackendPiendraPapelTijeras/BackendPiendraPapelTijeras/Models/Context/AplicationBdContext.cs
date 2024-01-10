@@ -23,6 +23,18 @@ namespace BackendPiendraPapelTijeras.Models.Context
                 .HasForeignKey(p => p.IdJugadorGanador)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Turno>()
+                .HasOne(p => p.Partida)
+                .WithMany()
+                .HasForeignKey(p => p.IdPartida)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Jugador>()
+                .HasOne(p => p.Partida)
+                .WithMany()
+                .HasForeignKey(p => p.IdPartida)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelBuilder);
         }
     }

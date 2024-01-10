@@ -6,6 +6,6 @@ namespace BackendPiendraPapelTijeras.Models
     {
         [Key]
         public int IdPartida { get; set; }
-        public int Ganador { get; set; }
+        public int? Ganador { get; set; }
     }
 }

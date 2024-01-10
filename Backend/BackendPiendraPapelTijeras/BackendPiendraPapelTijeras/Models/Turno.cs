@@ -9,7 +9,7 @@ namespace BackendPiendraPapelTijeras.Models
         public int IdPartida { get; set; }
         public Partida Partida { get; set; }
         public string Resultado { get; set; }
-        public int IdJugadorGanador { get; set; }
-        public Jugador Ganador { get; set; }
+        public int? IdJugadorGanador { get; set; }
+        public Jugador? Ganador { get; set; }
     }
 }
