@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendPiendraPapelTijeras", "BackendPiendraPapelTijeras\BackendPiendraPapelTijeras.csproj", "{492E66FF-E131-4156-8527-5B9D06A19F36}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{492E66FF-E131-4156-8527-5B9D06A19F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{492E66FF-E131-4156-8527-5B9D06A19F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{492E66FF-E131-4156-8527-5B9D06A19F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{492E66FF-E131-4156-8527-5B9D06A19F36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6FB07F6-A12A-4E2E-A972-7717F73C97B0}
+	EndGlobalSection
+EndGlobal
