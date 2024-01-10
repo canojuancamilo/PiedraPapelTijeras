@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BackendPiendraPapelTijeras.Context.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace BackendPiendraPapelTijeras.Models.Context
+namespace BackendPiendraPapelTijeras.Context
 {
     public class AplicationBdContext : DbContext
     {

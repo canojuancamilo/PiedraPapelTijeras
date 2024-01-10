@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BackendPiendraPapelTijeras.Models
+namespace BackendPiendraPapelTijeras.Context.Models
 {
     public class Turno
     {
@@ -11,5 +11,6 @@ namespace BackendPiendraPapelTijeras.Models
         public string Resultado { get; set; }
         public int? IdJugadorGanador { get; set; }
         public Jugador? Ganador { get; set; }
+        public DateTime FechaRegistro { get; set; }
     }
 }

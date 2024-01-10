@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BackendPiendraPapelTijeras.Models
+namespace BackendPiendraPapelTijeras.Context.Models
 {
     public class Jugador
     {
