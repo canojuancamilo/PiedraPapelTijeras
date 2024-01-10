@@ -1,9 +1,11 @@
-using BackendPiendraPapelTijeras.Models.DbContext;
+using BackendPiendraPapelTijeras.Models.Context;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<AplicationBdContext>(m => m.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql")));
-// Add services to the container.
+builder.Services.AddDbContext<AplicationBdContext>(m => 
+m.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -11,13 +13,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
