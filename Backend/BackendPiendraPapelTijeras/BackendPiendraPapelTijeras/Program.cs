@@ -1,5 +1,8 @@
-var builder = WebApplication.CreateBuilder(args);
+using BackendPiendraPapelTijeras.Models.DbContext;
+using Microsoft.EntityFrameworkCore;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AplicationBdContext>(m => m.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql")));
 // Add services to the container.
 
 builder.Services.AddControllers();
