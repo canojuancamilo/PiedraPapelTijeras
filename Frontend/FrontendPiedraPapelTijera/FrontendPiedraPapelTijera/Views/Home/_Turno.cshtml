@@ -12,7 +12,6 @@
     <span> Ronda #@numeroTurno</span>
 </div>
 
-
 @foreach (var item in Model)
 {
     var viewData = new ViewDataDictionary(ViewData) { { "idJugador", item.IdJugador } };
@@ -33,5 +32,6 @@
             </div>
         </div>
     </div>
+
     contador++;
 }
