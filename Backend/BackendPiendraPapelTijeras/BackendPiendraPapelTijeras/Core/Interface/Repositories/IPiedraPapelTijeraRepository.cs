@@ -1,5 +1,4 @@
 ﻿using BackendPiendraPapelTijeras.Context.Models;
-using BackendPiendraPapelTijeras.Models;
 
 namespace BackendPiendraPapelTijeras.Core.Interface.Repositories
 {

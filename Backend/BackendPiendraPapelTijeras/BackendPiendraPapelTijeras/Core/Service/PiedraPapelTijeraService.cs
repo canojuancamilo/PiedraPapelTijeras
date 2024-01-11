@@ -1,12 +1,7 @@
-﻿using BackendPiendraPapelTijeras.Context;
-using BackendPiendraPapelTijeras.Context.Models;
+﻿using BackendPiendraPapelTijeras.Context.Models;
 using BackendPiendraPapelTijeras.Core.Interface.Repositories;
 using BackendPiendraPapelTijeras.Core.Interface.Services;
-using BackendPiendraPapelTijeras.Core.Repository;
-using BackendPiendraPapelTijeras.Migrations;
 using BackendPiendraPapelTijeras.Models;
-using System.Collections.Generic;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BackendPiendraPapelTijeras.Core.Service
 {

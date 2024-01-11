@@ -1,9 +1,7 @@
 ﻿using BackendPiendraPapelTijeras.Context;
 using BackendPiendraPapelTijeras.Context.Models;
 using BackendPiendraPapelTijeras.Core.Interface.Repositories;
-using BackendPiendraPapelTijeras.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace BackendPiendraPapelTijeras.Core.Repository
 {

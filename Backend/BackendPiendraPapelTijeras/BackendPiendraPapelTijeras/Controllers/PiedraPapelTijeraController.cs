@@ -9,13 +9,10 @@ namespace BackendPiendraPapelTijeras.Controllers
     [Route("Api/[controller]")]
     public class PiedraPapelTijeraController : ControllerBase
     {
-        readonly ILogger<PiedraPapelTijeraController> _logger;
         readonly IPiedraPapelTijeraService _piedraPapelTijeraService;
 
-        public PiedraPapelTijeraController(ILogger<PiedraPapelTijeraController> logger,
-           IPiedraPapelTijeraService piedraPapelTijeraService)
+        public PiedraPapelTijeraController(IPiedraPapelTijeraService piedraPapelTijeraService)
         {
-            _logger = logger;
             _piedraPapelTijeraService = piedraPapelTijeraService;
         }
 
@@ -29,7 +26,7 @@ namespace BackendPiendraPapelTijeras.Controllers
 
                 List<Jugador> jugadores = _piedraPapelTijeraService.RegistrarInicioPartida(model.PrimerJugador, model.SegundoJugador);
 
-                return Ok(jugadores);
+                return CreatedAtAction(nameof(PostIniciarPartida), jugadores);
             }
             catch (Exception ex)
             {
