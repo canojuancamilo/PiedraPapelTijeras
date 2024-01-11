@@ -4,9 +4,7 @@
 <input type="hidden" id="urlGuardarTurno" value="@Url.Action("RegistrarTurno", "Home")" />
 <input type="hidden" id="urlIniciarRonda" value="@Url.Action("IniciarNuevaRonda", "Home", new {idPartida = @Model.FirstOrDefault().IdPartida})" />
 
-<div class="">
-    <span>@Html.DisplayNameFor(model => model.IdPartida): @Html.DisplayFor(model => model.FirstOrDefault().IdPartida)</span>
-</div>
+<span>@Html.DisplayNameFor(model => model.IdPartida): @Html.DisplayFor(model => model.FirstOrDefault().IdPartida)</span>
 
 <div id="contendorResultadoPartida"></div>
 

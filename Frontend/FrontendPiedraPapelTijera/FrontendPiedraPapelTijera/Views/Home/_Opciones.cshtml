@@ -20,10 +20,13 @@
     int? idJugador = (int?)ViewData["idJugador"];
 }
 
-<div class="card">
+<div class="card cardOpciones">
     <div class="card-body contenedorOpcion" data-opcion="@((int)Model)" data-id_jugador="@idJugador">
         <div class="text-center">
-            <img class="imagenOpcion" src="@imagen" alt="@Model.ToString()" />
+            <div class ="imagenOpcion">
+                <img src="@imagen" alt="@Model.ToString()" />
+            </div>
+          
             <p class="fw-bold">
                 @Model.ToString()
             </p>

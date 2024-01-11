@@ -53,15 +53,25 @@ h2 {
 }
 
 .imagenOpcion {
-    width: 200px;
-    height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    margin: auto;
     margin-bottom: 20px;
+    min-height: 180px;
 }
 
-.contenedorOpcion:hover {
-    cursor: pointer;
-    background-color: #FAFAFA;
+    .imagenOpcion img {
+        width: 100%;
+    }
+
+.contenedorOpcion {
+    min-height: 272px;
 }
+
+    .contenedorOpcion:hover {
+        cursor: pointer;
+        background-color: #FAFAFA;
+    }
 
 .contendorJugadoresTurno {
     margin-bottom: 100px;
@@ -76,4 +86,28 @@ h2 {
     font-weight: 600;
     font-size: 20px;
     margin-top: 15px;
+}
+
+.textBlue h2 {
+    color: #0B57D0;
+}
+
+.textGreen h2 {
+    color: #5BB4E5;
+}
+
+
+@media screen and (max-width: 768px) {
+    .imagenOpcion {
+        margin-bottom: 30px;
+    }
+
+    .cardOpciones {
+        margin-bottom: 15px;
+    }
+
+    .textTurnoJugador {
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
 }

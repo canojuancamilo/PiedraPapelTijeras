@@ -2,7 +2,7 @@
 
  @await Html.PartialAsync("_Turno", Model)
 
-<div class="text-center">
+<div class="text-center textTurnoJugador">
     <h2 class="text-danger"> Resultados</h2>
 </div>
 
@@ -21,14 +21,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-lg-3 col-md-3">
                             <label class="control-label">@Html.DisplayNameFor(m => item.IdJugador):</label>
                             <p class=" check-control">
                                 @Html.DisplayFor(m => item.IdJugador)
                             </p>
                         </div>
 
-                        <div class="col-9">
+                        <div class="col-lg-9 col-md-9">
                             <label class=" control-label">@Html.DisplayNameFor(m => item.Nombre):</label>
                             <p class="check-control">
                                 @Html.DisplayFor(m => item.Nombre)
@@ -37,19 +37,19 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-lg-4 col-md-4">
                             <label class="control-label">@Html.DisplayNameFor(m => item.TurnosGanados):</label>
                             <p class="check-control">
                                 @Html.DisplayFor(m => item.TurnosGanados)
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-md-4">
                             <label class="control-label">@Html.DisplayNameFor(m => item.TurnosEmpatados):</label>
                             <p class="check-control">
                                 @Html.DisplayFor(m => item.TurnosEmpatados)
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-md-4">
                             <label class="control-label">@Html.DisplayNameFor(m => item.TurnosPerdidos):</label>
                             <p class="check-control">
                                 @Html.DisplayFor(m => item.TurnosPerdidos)
