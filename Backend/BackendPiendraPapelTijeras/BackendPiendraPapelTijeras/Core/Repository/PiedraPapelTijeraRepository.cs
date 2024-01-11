@@ -35,7 +35,7 @@ namespace BackendPiendraPapelTijeras.Core.Repository
         {
             List<Jugador> jugadores = new List<Jugador>() {
             new Jugador(){Nombre = jugador1, IdPartida = partida},
-            new Jugador(){Nombre = jugador1, IdPartida = partida}
+            new Jugador(){Nombre = jugador2, IdPartida = partida}
             };
 
             _dbContext.Jugadores.AddRange(jugadores);

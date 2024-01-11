@@ -8,7 +8,6 @@ let opcionesJugador = [];
 $("#contenedorLayout").on("submit", "#formularioIniciarPartida", function (e) {
     e.preventDefault();
 
-
     if ($(this).valid()) {
         $("#iniciarPartidaBtn").prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Iniciando...');
         let urlForm = $(this).data("url");
@@ -34,6 +33,7 @@ $("#contenedorLayout").on("submit", "#formularioIniciarPartida", function (e) {
 });
 
 $("#contenedorLayout").on("click", ".contenedorOpcion", function (e) {
+    debugger;
     let idJugador = $(this).data("id_jugador");
     let opcion = $(this).data("opcion");
 
