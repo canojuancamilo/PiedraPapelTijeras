@@ -73,12 +73,10 @@ namespace FrontendPiedraPapelTijera.Controllers
 
         [HttpGet]
         [Route("IniciarNuevaRonda/{idPartida}")]
-        public async Task<IActionResult> IniciarNuevaRonda(int idPartida)
+        public IActionResult IniciarNuevaRonda(int idPartida)
         {
             try
             {
-                 await _piedraPapelTijeraService.ObtenerResultadosPartida(idPartida);
-
                 List<JugadorViewModel> jugadores = new List<JugadorViewModel>(){
                         new JugadorViewModel() { IdPartida = idPartida, }
                 };

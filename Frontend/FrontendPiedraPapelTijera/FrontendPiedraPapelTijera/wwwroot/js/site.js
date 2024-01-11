@@ -33,7 +33,6 @@ $("#contenedorLayout").on("submit", "#formularioIniciarPartida", function (e) {
 });
 
 $("#contenedorLayout").on("click", ".contenedorOpcion", function (e) {
-    debugger;
     let idJugador = $(this).data("id_jugador");
     let opcion = $(this).data("opcion");
 
@@ -43,7 +42,6 @@ $("#contenedorLayout").on("click", ".contenedorOpcion", function (e) {
     $(".contendorJugadoresTurno" + idJugador).hide();
 
     if (opcionesJugador.length == 2) {
-        debugger;
         var ganador = ValidarGanador(opcionesJugador);
         opcionesJugador = [];
         GuardarTurno(ganador);
@@ -65,7 +63,6 @@ let ValidarGanador = function (opciones) {
 };
 
 let GuardarTurno = function (idGanador) {
-    debugger;
     let urlForm = $("#urlGuardarTurno").val();
     let IdPartida = $("#inputIdPartida").val();
 
@@ -74,26 +71,20 @@ let GuardarTurno = function (idGanador) {
         type: "POST",
         data: { IdPartida: IdPartida, Ganador: idGanador },
         success: function (data) {
-
-            debugger;
             if (data.finPartida) {
                 alerta("El ganador de esta partida fue: " + data.ganador + ", se iniciara una nueva partida con nuevos jugadores.", "Fin partida", function () { location.reload(); })
             }
             else {
                 $('#mensajeInfo').html("Aun no tenemos un ganador de la partida.");
-                $('#mensajeError').fadeIn();
+                $('#mensajeInfo').fadeIn();
                 setTimeout(function () {
-                    $('#mensajeError').fadeOut();
+                    $('#mensajeInfo').fadeOut();
                 }, 5000);
                 let urlIniciarRonda = $("#urlIniciarRonda").val();
                 IniciarNuevaRonda(urlIniciarRonda);
             }
-
-            $("#contenedorLayout").html(data);
         },
         error: function (error) {
-
-            debugger;
             $('#mensajeError').html(error.responseJSON.error);
             $('#mensajeError').fadeIn();
             setTimeout(function () {
@@ -104,13 +95,16 @@ let GuardarTurno = function (idGanador) {
 };
 
 let IniciarNuevaRonda = function (urlIniciarRonda) {
+    debugger;
     $.ajax({
         url: urlIniciarRonda,
         type: "Get",
         success: function (data) {
+            debugger;
             $("#contenedorLayout").html(data);
         },
         error: function (error) {
+            debugger;
             $('#mensajeError').html(error.responseJSON.error);
             $('#mensajeError').fadeIn();
             setTimeout(function () {
