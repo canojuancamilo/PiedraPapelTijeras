@@ -63,9 +63,9 @@ namespace BackendPiendraPapelTijeras.Core.Repository
             _dbContext.SaveChanges();
         }
 
-        public Partida ObtenerDetallePartida(int idPartida)
+        public Partida? ObtenerDetallePartida(int idPartida)
         {
-            return _dbContext.Partidas?.FirstOrDefault(m => m.IdPartida == idPartida) ?? new Partida() { };
+            return _dbContext.Partidas?.FirstOrDefault(m => m.IdPartida == idPartida);
         }
 
         public List<Jugador> ObtenerJugadoresPartida(int idPartida) 
