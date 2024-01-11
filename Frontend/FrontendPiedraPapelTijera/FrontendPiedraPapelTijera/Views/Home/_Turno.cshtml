@@ -1,0 +1,35 @@
+﻿@model IEnumerable<FrontendPiedraPapelTijera.Models.ResultadoPartidaViewModel>
+@{
+    int numeroTurno = Model.First().TurnosGanados + Model.First().TurnosPerdidos + Model.First().TurnosEmpatados + 1;
+    FrontendPiedraPapelTijera.Models.Enums.PiedraPapelTijeras[] opciones =
+    (FrontendPiedraPapelTijera.Models.Enums.PiedraPapelTijeras[])Enum.GetValues(typeof(FrontendPiedraPapelTijera.Models.Enums.PiedraPapelTijeras));
+    int idPrimerJugador = Model?.FirstOrDefault()?.IdJugador ?? 0;
+    int idSegundoJugador = Model?.LastOrDefault()?.IdJugador ?? 0;
+}
+
+<div class="text-end">
+    <span> Ronda #@numeroTurno</span>
+</div>
+
+
+@foreach (var item in Model)
+{
+    var viewData = new ViewDataDictionary(ViewData) { { "idJugador", item.IdJugador } };
+    <div class="contendorJugadoresTurno contendorJugadoresTurno@(item.IdJugador)" style="@(idPrimerJugador == item.IdJugador? "": "display:none;")">
+        <div class="text-center">
+            <h2 class="text-danger">  Turno del jugador: @item.Nombre</h2>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    @foreach (var opcion in opciones)
+                    {                        
+                        <div class="col-4">
+                            @await Html.PartialAsync("_Opciones", opcion, viewData)
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

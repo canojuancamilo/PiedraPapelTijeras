@@ -43,7 +43,7 @@ namespace FrontendPiedraPapelTijera.Repositories
         {
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync($"{BaseUrl}/IniciarPartida/{IdPartida}");
+                HttpResponseMessage response = await _httpClient.GetAsync($"{BaseUrl}/ResultadoPartida/{IdPartida}");
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadFromJsonAsync<List<ResultadoPartidaViewModel>>();

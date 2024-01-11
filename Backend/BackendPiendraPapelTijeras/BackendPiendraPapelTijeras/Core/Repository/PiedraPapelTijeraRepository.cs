@@ -69,5 +69,10 @@ namespace BackendPiendraPapelTijeras.Core.Repository
         {
             return _dbContext.Partidas?.FirstOrDefault(m => m.IdPartida == idPartida) ?? new Partida() { };
         }
+
+        public List<Jugador> ObtenerJugadoresPartida(int idPartida) 
+        {
+           return _dbContext.Jugadores.Where(m => m.IdPartida == idPartida).ToList();
+        }
     }
 }

@@ -18,5 +18,51 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: 'Nunito','NunitoSans','Helvetica Neue','Helvetica','Arial','sans-serif';
+    line-height: 1.42857143;
+    color: #333;
 }
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.check-control {
+    padding: 5px 10px;
+    min-height: 34px;
+    border: 1px solid #f7f7f7;
+    border-radius: 6px;
+    background-color: #f7f7f7;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+h2 {
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.contendorJugadoresResultados {
+    display: grid;
+    grid-template-columns: repeat(2, 40%);
+    justify-content: space-between;
+}
+
+.imagenOpcion{
+    width:200px;
+    height:200px;
+    margin-bottom:20px;
+}
+
+.contenedorOpcion:hover {
+    cursor: pointer;
+    background-color: #FAFAFA;
+}
+
+    .contendorJugadoresTurno {
+        margin-bottom: 100px;
+    }

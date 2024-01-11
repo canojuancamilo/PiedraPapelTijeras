@@ -1,47 +1,24 @@
 ﻿@model IEnumerable<FrontendPiedraPapelTijera.Models.JugadorViewModel>
 
-@{
-    ViewData["Title"] = "View";
-}
+<input type="hidden" id="inputIdPartida" value="@Model.FirstOrDefault().IdPartida" />
+<input type="hidden" id="urlGuardarTurno" value="@Url.Action("RegistrarTurno", "Home")" />
+<input type="hidden" id="urlIniciarRonda" value="@Url.Action("IniciarNuevaRonda", "Home", new {idPartida = @Model.FirstOrDefault().IdPartida})" />
 
-<h1>View</h1>
+<div class="">
+    <span>@Html.DisplayNameFor(model => model.IdPartida): @Html.DisplayFor(model => model.FirstOrDefault().IdPartida)</span>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdJugador)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdPartida)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdJugador)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdPartida)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div id="contendorResultadoPartida"></div>
+
+<script>
+    $("#contendorResultadoPartida").load("@(Url.Action("ObtenerResultadosPartida", "Home", new { idPartida = Model.FirstOrDefault().IdPartida }))", function (response, status, xhr) {
+        if (status == "error") {
+            $('#mensajeError').html(xhr.statusText);
+
+            $('#mensajeError').fadeIn();
+            setTimeout(function () {
+                $('#mensajeError').fadeOut();
+            }, 5000);
+        }
+    });
+</script>

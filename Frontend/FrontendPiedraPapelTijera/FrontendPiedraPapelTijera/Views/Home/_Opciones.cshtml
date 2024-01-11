@@ -1,0 +1,32 @@
+﻿@model FrontendPiedraPapelTijera.Models.Enums.PiedraPapelTijeras
+@{
+    string imagen = "";
+
+    switch (Model)
+    {
+        case FrontendPiedraPapelTijera.Models.Enums.PiedraPapelTijeras.Piedra:
+            imagen = "https://static.vecteezy.com/system/resources/previews/012/604/091/non_2x/fist-gesture-on-left-hand-for-concept-of-rock-paper-scissors-game-isolated-on-white-background-free-photo.jpeg";
+            break;
+
+        case FrontendPiedraPapelTijera.Models.Enums.PiedraPapelTijeras.Tijeras:
+            imagen = "https://noticiasdelaciencia.com/upload/images/01_2020/212_rock-paper-scissors_scissors.png";
+            break;
+
+        case FrontendPiedraPapelTijera.Models.Enums.PiedraPapelTijeras.Papel:
+            imagen = "https://img.freepik.com/fotos-premium/imagen-mano-que-muestra-gesto-cinco-dedos-blanco_194646-1048.jpg";
+            break;
+    }
+
+    int? idJugador = (int?)ViewData["idJugador"];
+}
+
+<div class="card">
+    <div class="card-body contenedorOpcion" data-opcion="@((int)Model)" data-id_jugador="@idJugador">
+        <div class="text-center">
+            <img class="imagenOpcion" src="@imagen" alt="@Model.ToString()" />
+            <p class="fw-bold">
+                @Model.ToString()
+            </p>
+        </div>
+    </div>
+</div>
