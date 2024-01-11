@@ -1,6 +1,7 @@
 ﻿using BackendPiendraPapelTijeras.Context.Models;
 using BackendPiendraPapelTijeras.Core.Interface.Repositories;
 using BackendPiendraPapelTijeras.Core.Interface.Services;
+using BackendPiendraPapelTijeras.Core.Repository;
 using BackendPiendraPapelTijeras.Models;
 
 namespace BackendPiendraPapelTijeras.Core.Service
@@ -14,8 +15,13 @@ namespace BackendPiendraPapelTijeras.Core.Service
             _piedraPapelTijeraRepository = piedraPapelTijeraRepository;
         }
 
-        public List<ResultadoJugador> obtenerResultadosPartida(int idPartida)
+        public List<ResultadoJugador> ObtenerResultadosPartida(int idPartida)
         {
+            Partida? partida =_piedraPapelTijeraRepository.ObtenerDetallePartida(idPartida);
+
+            if(partida== null)
+                throw new InvalidOperationException($"La partida {idPartida} no se encuentra registrada.");
+
             List<Jugador> jugadores = _piedraPapelTijeraRepository.ObtenerJugadoresPartida(idPartida);
             List<Turno> turnos = _piedraPapelTijeraRepository.ObtenerTurnosPartida(idPartida);
             List<ResultadoJugador> resultados = new List<ResultadoJugador>();
@@ -45,14 +51,17 @@ namespace BackendPiendraPapelTijeras.Core.Service
 
         public void RegistrarTurnoPartida(int idPartida, int? idJugadorGanador)
         {
-            Partida partida = _piedraPapelTijeraRepository.obtenerDetallePartida(idPartida);
+            Partida partida = _piedraPapelTijeraRepository.ObtenerDetallePartida(idPartida);
+
+            if (partida == null)
+                throw new InvalidOperationException($"La partida {idPartida} no se encuentra registrada.");
 
             if (partida.Ganador != 0 && partida.Ganador != null)
                 throw new InvalidOperationException($"La partida ya fue finalizada.");
 
             _piedraPapelTijeraRepository.RegistrarTurnoPartida(idPartida, idJugadorGanador);
 
-            List<ResultadoJugador> resultados = this.obtenerResultadosPartida(idPartida);
+            List<ResultadoJugador> resultados = this.ObtenerResultadosPartida(idPartida);
             int partidasGanadasJugador = resultados?.FirstOrDefault(m => m.IdJugador == (idJugadorGanador ?? 0))?.TurnosGanados ?? 0;
 
             if (partidasGanadasJugador >= 3)

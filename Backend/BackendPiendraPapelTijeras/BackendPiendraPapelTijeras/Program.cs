@@ -4,9 +4,7 @@ using BackendPiendraPapelTijeras.Core.Interface.Services;
 using BackendPiendraPapelTijeras.Core.Repository;
 using BackendPiendraPapelTijeras.Core.Service;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddScoped<IPiedraPapelTijeraService, PiedraPapelTijeraService>();
 builder.Services.AddScoped<IPiedraPapelTijeraRepository, PiedraPapelTijeraRepository>();
+builder.Services.AddScoped<IManejoErroresRepository, ManejoErroresRepository>();
+builder.Services.AddScoped<IManejoErroresService, ManejoErroresService>();
 
 builder.Services.AddSwaggerGen(c =>
 {

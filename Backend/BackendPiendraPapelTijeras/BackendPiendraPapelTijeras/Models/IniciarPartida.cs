@@ -6,6 +6,7 @@ namespace BackendPiendraPapelTijeras.Models
     {
         [Required]
         public string PrimerJugador { get; set; }
+
         [Required]
         public string SegundoJugador { get; set; }
     }

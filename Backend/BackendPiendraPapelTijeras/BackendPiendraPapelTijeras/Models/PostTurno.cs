@@ -6,6 +6,7 @@ namespace BackendPiendraPapelTijeras.Models
     {
         [Required]
         public int IdPartida { get; set; }
+
         public int? IdJugadorGanador { get; set; }
     }
 }

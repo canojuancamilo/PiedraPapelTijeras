@@ -10,10 +10,13 @@ namespace BackendPiendraPapelTijeras.Controllers
     public class PiedraPapelTijeraController : ControllerBase
     {
         readonly IPiedraPapelTijeraService _piedraPapelTijeraService;
+        readonly IManejoErroresService _manejoErroresService;
 
-        public PiedraPapelTijeraController(IPiedraPapelTijeraService piedraPapelTijeraService)
+        public PiedraPapelTijeraController(IPiedraPapelTijeraService piedraPapelTijeraService,
+            IManejoErroresService manejoErroresService)
         {
             _piedraPapelTijeraService = piedraPapelTijeraService;
+            _manejoErroresService = manejoErroresService;
         }
 
         [HttpPost("IniciarPartida")]
@@ -30,6 +33,7 @@ namespace BackendPiendraPapelTijeras.Controllers
             }
             catch (Exception ex)
             {
+                _manejoErroresService.Error(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -43,12 +47,13 @@ namespace BackendPiendraPapelTijeras.Controllers
                     return BadRequest(ModelState);
 
                 _piedraPapelTijeraService.RegistrarTurnoPartida(model.IdPartida, model.IdJugadorGanador);
-                List<ResultadoJugador> resultados = _piedraPapelTijeraService.obtenerResultadosPartida(model.IdPartida);
+                List<ResultadoJugador> resultados = _piedraPapelTijeraService.ObtenerResultadosPartida(model.IdPartida);
 
-                return Ok(resultados);
+                return CreatedAtAction(nameof(PostRegistrarTurno), resultados);
             }
             catch (Exception ex)
             {
+                _manejoErroresService.Error(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -61,12 +66,16 @@ namespace BackendPiendraPapelTijeras.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                List<ResultadoJugador> resultados = _piedraPapelTijeraService.obtenerResultadosPartida(idPartida);
+                List<ResultadoJugador> resultados = _piedraPapelTijeraService.ObtenerResultadosPartida(idPartida);
+
+                if(resultados == null || resultados.Count() ==0)
+                    return NotFound();
 
                 return Ok(resultados);
             }
             catch (Exception ex)
             {
+                _manejoErroresService.Error(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
