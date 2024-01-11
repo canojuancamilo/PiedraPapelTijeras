@@ -21,40 +21,20 @@ namespace BackendPiendraPapelTijeras.Core.Service
 
         public List<ResultadoJugador> obtenerResultadosPartida(int idPartida)
         {
+            List<Jugador> jugadores = _piedraPapelTijeraRepository.ObtenerJugadoresPartida(idPartida);
             List<Turno> turnos = _piedraPapelTijeraRepository.ObtenerTurnosPartida(idPartida);
             List<ResultadoJugador> resultados = new List<ResultadoJugador>();
 
-            foreach (var turno in turnos.Where(m => m.IdJugadorGanador != null).GroupBy(m => m.IdJugadorGanador))
+            foreach (var jugador in jugadores)
             {
-                int empates = turnos.Where(m => m.IdJugadorGanador == null).Count();
-                int victorias = turno.Count();
-                int perdidas = turnos.Where(m => m.IdJugadorGanador != null && m.IdJugadorGanador != turno?.FirstOrDefault()?.IdJugadorGanador).Count();
-
                 resultados.Add(new ResultadoJugador()
                 {
-                    IdJugador = turno?.FirstOrDefault()?.IdJugadorGanador ?? 0,
-                    Nombre = turno?.FirstOrDefault()?.Ganador.Nombre ?? string.Empty,
-                    TurnosGanados = victorias,
-                    TurnosEmpatados = empates,
-                    TurnosPerdidos = perdidas,
+                    IdJugador = jugador.IdJugador,
+                    Nombre = jugador.Nombre,
+                    TurnosGanados = turnos?.Where(m=> m.IdJugadorGanador == jugador.IdJugador)?.Count() ?? 0,
+                    TurnosEmpatados = turnos?.Where(m => m.IdJugadorGanador == null)?.Count() ?? 0,
+                    TurnosPerdidos = turnos?.Where(m => m.IdJugadorGanador != jugador.IdJugador && m.IdJugadorGanador != null)?.Count() ?? 0
                 });
-            }
-
-            if (turnos == null || turnos.Count() == 0)
-            {
-                List<Jugador> jugadores = _piedraPapelTijeraRepository.ObtenerJugadoresPartida(idPartida);
-
-                foreach (var jugador in jugadores)
-                {
-                    resultados.Add(new ResultadoJugador()
-                    {
-                        IdJugador = jugador.IdJugador,
-                        Nombre = jugador.Nombre,
-                        TurnosGanados = 0,
-                        TurnosEmpatados = 0,
-                        TurnosPerdidos = 0,
-                    });
-                }
             }
 
             return resultados;

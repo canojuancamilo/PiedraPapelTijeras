@@ -43,8 +43,10 @@ $("#contenedorLayout").on("click", ".contenedorOpcion", function (e) {
     $(".contendorJugadoresTurno" + idJugador).hide();
 
     if (opcionesJugador.length == 2) {
+        debugger;
         var ganador = ValidarGanador(opcionesJugador);
         opcionesJugador = [];
+        GuardarTurno(ganador);
     }
 });
 
@@ -63,6 +65,7 @@ let ValidarGanador = function (opciones) {
 };
 
 let GuardarTurno = function (idGanador) {
+    debugger;
     let urlForm = $("#urlGuardarTurno").val();
     let IdPartida = $("#inputIdPartida").val();
 
@@ -71,11 +74,13 @@ let GuardarTurno = function (idGanador) {
         type: "POST",
         data: { IdPartida: IdPartida, Ganador: idGanador },
         success: function (data) {
-            if (finPartida) {
+
+            debugger;
+            if (data.finPartida) {
                 alerta("El ganador de esta partida fue: " + data.ganador + ", se iniciara una nueva partida con nuevos jugadores.", "Fin partida", function () { location.reload(); })
             }
             else {
-                $('#mensajeInfo').html("Aun no tenemos un ganador.");
+                $('#mensajeInfo').html("Aun no tenemos un ganador de la partida.");
                 $('#mensajeError').fadeIn();
                 setTimeout(function () {
                     $('#mensajeError').fadeOut();
@@ -87,6 +92,8 @@ let GuardarTurno = function (idGanador) {
             $("#contenedorLayout").html(data);
         },
         error: function (error) {
+
+            debugger;
             $('#mensajeError').html(error.responseJSON.error);
             $('#mensajeError').fadeIn();
             setTimeout(function () {
