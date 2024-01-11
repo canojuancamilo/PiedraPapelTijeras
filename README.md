@@ -61,9 +61,10 @@ Este proyecto implementa el clásico juego de Piedra, Papel o Tijeras con una ar
 2. Ajusta la configuración del backend en `appsettings.json` o mediante variables de entorno:
 
     ```json
-     "BackendApi": {
-    "Url": "https://piendrapapeltijeras.azurewebsites.net"
-  }
+     "BackendApi":
+    {
+        "Url": "https://piendrapapeltijeras.azurewebsites.net"
+    }
     ```
 
 ### Ejecución
