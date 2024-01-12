@@ -96,6 +96,19 @@ h2 {
     color: #5BB4E5;
 }
 
+#spinner-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.cargando{
+display:none;
+}
+
 
 @media screen and (max-width: 768px) {
     .imagenOpcion {

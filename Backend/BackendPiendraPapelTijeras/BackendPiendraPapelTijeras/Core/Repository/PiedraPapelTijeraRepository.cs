@@ -124,6 +124,10 @@ namespace BackendPiendraPapelTijeras.Core.Repository
         {
             var turnos = _dbContext.Turnos.Where(p => p.IdPartida == idPartida);
             _dbContext.Turnos.RemoveRange(turnos);
+
+            var entidad = _dbContext.Partidas.FirstOrDefault(m => m.IdPartida == idPartida);
+            entidad.Ganador = null;
+
             _dbContext.SaveChanges();
         }
     }

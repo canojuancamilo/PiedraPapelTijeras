@@ -5,12 +5,16 @@
 
 let opcionesJugador = [];
 
-let EliminarTurnosPartida = function (urlEliminarTurnosPartida) {
+let EliminarTurnosPartida = function () {
+    let urlFormEliminarTurno = $("#urlEliminarTurnos").val();
+    MostrarSpinner();
+
     $.ajax({
-        url: urlEliminarTurnosPartida,
+        url: urlFormEliminarTurno,
         type: "Get",
         success: function (data) {
             $("#contenedorLayout").html(data);
+            OcultarSpinner();
         },
         error: function (error) {
             $('#mensajeError').html(error.responseJSON.error);
@@ -18,6 +22,7 @@ let EliminarTurnosPartida = function (urlEliminarTurnosPartida) {
             setTimeout(function () {
                 $('#mensajeError').fadeOut();
             }, 5000);
+            OcultarSpinner();
         }
     });
 };
@@ -60,11 +65,14 @@ let Confirmar = function (message, title, cbNuevoJuego, cbReiniciarJuego, type) 
 };
 
 let IniciarNuevaRonda = function (urlIniciarRonda) {
+    MostrarSpinner();
+
     $.ajax({
         url: urlIniciarRonda,
         type: "Get",
         success: function (data) {
             $("#contenedorLayout").html(data);
+            OcultarSpinner();
         },
         error: function (error) {
             $('#mensajeError').html(error.responseJSON.error);
@@ -72,14 +80,25 @@ let IniciarNuevaRonda = function (urlIniciarRonda) {
             setTimeout(function () {
                 $('#mensajeError').fadeOut();
             }, 5000);
+            OcultarSpinner();
         }
     });
 };
+
+function MostrarSpinner() {
+    $(".cargando").show();
+}
+
+function OcultarSpinner() {
+
+    $(".cargando").hide();
+}
 
 $("#contenedorLayout").on("submit", "#formularioIniciarPartida", function (e) {
     e.preventDefault();
 
     if ($(this).valid()) {
+        MostrarSpinner();
         $("#iniciarPartidaBtn").prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Iniciando...');
         let urlForm = $(this).data("url");
         $.ajax({
@@ -89,6 +108,7 @@ $("#contenedorLayout").on("submit", "#formularioIniciarPartida", function (e) {
             success: function (data) {
                 $("#contenedorLayout").html(data);
                 $("#iniciarPartidaBtn").prop('disabled', false).html('Iniciar partida');
+                OcultarSpinner();
             },
             error: function (error) {
                 $("#iniciarPartidaBtn").prop('disabled', false).html('Iniciar partida');
@@ -98,6 +118,7 @@ $("#contenedorLayout").on("submit", "#formularioIniciarPartida", function (e) {
                 setTimeout(function () {
                     $('#mensajeError').fadeOut();
                 }, 5000);
+                OcultarSpinner();
             }
         });
     }
@@ -113,6 +134,7 @@ $("#contenedorLayout").on("click", ".contenedorOpcion", function (e) {
     $(".contendorJugadoresTurno" + idJugador).hide();
 
     if (opcionesJugador.length == 2) {
+        MostrarSpinner();
         var ganador = ValidarGanador(opcionesJugador);
         opcionesJugador = [];
         GuardarTurno(ganador);
@@ -134,34 +156,41 @@ let ValidarGanador = function (opciones) {
 };
 
 let GuardarTurno = function (idGanador) {
-    let urlForm = $("#urlGuardarTurno").val();
-    let IdPartida = $("#inputIdPartida").val();
+    MostrarSpinner();
+    setTimeout(function () {
+        let urlForm = $("#urlGuardarTurno").val();
+        let IdPartida = $("#inputIdPartida").val();
 
-    $.ajax({
-        url: urlForm,
-        type: "POST",
-        data: { IdPartida: IdPartida, Ganador: idGanador },
-        success: function (data) {
-            if (data.finPartida) {
-                Confirmar("El ganador de esta partida fue: " + data.ganador + ", se iniciara una nueva partida con nuevos jugadores.", "Fin partida", function () { location.reload(); }, EliminarTurnosPartida)
-                alerta( )
-            }
-            else {
-                $('#mensajeInfo').html("Aun no tenemos un ganador de la partida.");
-                $('#mensajeInfo').fadeIn();
+        $.ajax({
+            url: urlForm,
+            type: "POST",
+            data: { IdPartida: IdPartida, Ganador: idGanador },
+            success: function (data) {
+                if (data.finPartida) {
+                    Confirmar("El ganador de esta partida fue: " + data.ganador + ".", "Fin partida",
+                        function () { location.reload(); },
+                        function () { EliminarTurnosPartida(); });
+                }
+                else {
+                    $('#mensajeInfo').html("Aun no tenemos un ganador de la partida.");
+                    $('#mensajeInfo').fadeIn();
+                    setTimeout(function () {
+                        $('#mensajeInfo').fadeOut();
+                    }, 5000);
+                    let urlIniciarRonda = $("#urlIniciarRonda").val();
+                    IniciarNuevaRonda(urlIniciarRonda);
+                }
+
+                OcultarSpinner();
+            },
+            error: function (error) {
+                $('#mensajeError').html(error.responseJSON.error);
+                $('#mensajeError').fadeIn();
                 setTimeout(function () {
-                    $('#mensajeInfo').fadeOut();
+                    $('#mensajeError').fadeOut();
                 }, 5000);
-                let urlIniciarRonda = $("#urlIniciarRonda").val();
-                IniciarNuevaRonda(urlIniciarRonda);
+                OcultarSpinner();
             }
-        },
-        error: function (error) {
-            $('#mensajeError').html(error.responseJSON.error);
-            $('#mensajeError').fadeIn();
-            setTimeout(function () {
-                $('#mensajeError').fadeOut();
-            }, 5000);
-        }
-    });
+        });
+    }, 1000);    
 };
