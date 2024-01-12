@@ -3,6 +3,7 @@ using FrontendPiedraPapelTijera.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 
@@ -23,6 +24,8 @@ namespace FrontendPiedraPapelTijera.Repositories
 
         public async Task<List<JugadorViewModel>> IniciarPartida(string PrimerJugador, string SegundoJugador)
         {
+            HttpResponseMessage response = new HttpResponseMessage() { };
+
             try
             {
                 var modelo = new
@@ -31,36 +34,48 @@ namespace FrontendPiedraPapelTijera.Repositories
                     SegundoJugador = SegundoJugador
                 };
 
-                HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/IniciarPartida", modelo);
+                response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/IniciarPartida", modelo);
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadFromJsonAsync<List<JugadorViewModel>>();
             }
-            catch (Exception ex)
+            catch (HttpRequestException ex)
             {
-                //MANEJAR ERROR
+                if (ex.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new InvalidOperationException(await response.Content.ReadAsStringAsync());
+                }
+
                 throw;
             }
         }
 
         public async Task<List<ResultadoPartidaViewModel>> ObtenerResultadosPartida(int IdPartida)
         {
+            HttpResponseMessage response = new HttpResponseMessage() { };
+
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync($"{BaseUrl}/ResultadoPartida/{IdPartida}");
+                response = await _httpClient.GetAsync($"{BaseUrl}/ResultadoPartida/{IdPartida}");
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadFromJsonAsync<List<ResultadoPartidaViewModel>>();
             }
-            catch (Exception ex)
+            catch (HttpRequestException ex)
             {
-                //Manejar error
+                if (ex.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new InvalidOperationException(await response.Content.ReadAsStringAsync());
+                }
+
                 throw;
             }
         }
 
         public async Task<List<ResultadoPartidaViewModel>> RegistrarTurno(int IdPartida, int? IdJugadorGanador)
         {
+            HttpResponseMessage response = new HttpResponseMessage() { };
+
             try
             {
                 var modelo = new
@@ -69,14 +84,18 @@ namespace FrontendPiedraPapelTijera.Repositories
                     IdJugadorGanador = IdJugadorGanador
                 };
 
-                HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/RegistrarTurno", modelo);
+                response = await _httpClient.PostAsJsonAsync($"{BaseUrl}/RegistrarTurno", modelo);
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadFromJsonAsync<List<ResultadoPartidaViewModel>>();
             }
-            catch (Exception ex)
+            catch (HttpRequestException ex)
             {
-                //MANEJAR ERROR
+                if (ex.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    throw new InvalidOperationException(await response.Content.ReadAsStringAsync());
+                }
+
                 throw;
             }
         }
