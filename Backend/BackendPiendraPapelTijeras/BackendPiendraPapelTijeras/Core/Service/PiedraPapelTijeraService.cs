@@ -51,7 +51,7 @@ namespace BackendPiendraPapelTijeras.Core.Service
 
         public void RegistrarTurnoPartida(int idPartida, int? idJugadorGanador)
         {
-            Partida partida = _piedraPapelTijeraRepository.ObtenerDetallePartida(idPartida);
+            Partida? partida = _piedraPapelTijeraRepository.ObtenerDetallePartida(idPartida);
 
             if (partida == null)
                 throw new InvalidOperationException($"La partida {idPartida} no se encuentra registrada.");
@@ -66,6 +66,16 @@ namespace BackendPiendraPapelTijeras.Core.Service
 
             if (partidasGanadasJugador >= 3)
                 _piedraPapelTijeraRepository.ActualizarPartida(idPartida, idJugadorGanador ?? 0);
+        }
+
+        public void EliminarTurnosPartida(int idPartida)
+        {
+            Partida? partida = _piedraPapelTijeraRepository.ObtenerDetallePartida(idPartida);
+
+            if (partida == null)
+                throw new InvalidOperationException($"La partida {idPartida} no se encuentra registrada.");
+
+            _piedraPapelTijeraRepository.EliminarTurnosPartida(idPartida);
         }
     }
 }

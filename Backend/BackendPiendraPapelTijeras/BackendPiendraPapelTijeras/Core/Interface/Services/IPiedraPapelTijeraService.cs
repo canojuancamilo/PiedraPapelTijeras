@@ -29,5 +29,11 @@ namespace BackendPiendraPapelTijeras.Core.Interface.Services
         /// <param name="idPartida">Identificador único de la partida.</param>
         /// <param name="idJugadorGanador">Identificador único del jugador ganador, o null si no hay ganador.</param>
         void RegistrarTurnoPartida(int idPartida, int? idJugadorGanador);
+
+        /// <summary>
+        /// Elimina los turnos de una partida
+        /// </summary>
+        /// <param name="idPartida">Identificador único de la partida.</param>
+        void EliminarTurnosPartida(int idPartida);
     }
 }

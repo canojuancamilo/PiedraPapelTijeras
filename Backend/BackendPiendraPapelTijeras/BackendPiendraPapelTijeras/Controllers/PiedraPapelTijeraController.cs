@@ -121,5 +121,21 @@ namespace BackendPiendraPapelTijeras.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpDelete("EliminarTurnosPartida/{idPartida}")]
+        public IActionResult DeleteTurnosPartida(int idPartida)
+        {
+            try
+            {
+                _piedraPapelTijeraService.EliminarTurnosPartida(idPartida);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _manejoErroresService.Error(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
