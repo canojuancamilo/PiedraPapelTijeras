@@ -5,6 +5,77 @@
 
 let opcionesJugador = [];
 
+let EliminarTurnosPartida = function (urlEliminarTurnosPartida) {
+    $.ajax({
+        url: urlEliminarTurnosPartida,
+        type: "Get",
+        success: function (data) {
+            $("#contenedorLayout").html(data);
+        },
+        error: function (error) {
+            $('#mensajeError').html(error.responseJSON.error);
+            $('#mensajeError').fadeIn();
+            setTimeout(function () {
+                $('#mensajeError').fadeOut();
+            }, 5000);
+        }
+    });
+};
+
+let alerta = function (message, title, cb, type) {
+    if (typeof swal !== 'undefined') {
+        swal.fire({
+            title: title || '',
+            text: message,
+            icon: type || null,
+            //icon: type,//"warning", "error", "success" and "info".
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                cb();
+            }
+        });
+    }
+};
+
+let Confirmar = function (message, title, cbNuevoJuego, cbReiniciarJuego, type) {
+    if (typeof swal !== 'undefined') {
+        swal.fire({
+            title: title || '',
+            text: message,
+            icon: type || null,
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            confirmButtonText: 'Nuevo juego',
+            cancelButtonColor: '#007bff',
+            cancelButtonText: 'Reiniciar juego'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                cbNuevoJuego();
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                cbReiniciarJuego();
+            }
+        });
+    }
+};
+
+let IniciarNuevaRonda = function (urlIniciarRonda) {
+    $.ajax({
+        url: urlIniciarRonda,
+        type: "Get",
+        success: function (data) {
+            $("#contenedorLayout").html(data);
+        },
+        error: function (error) {
+            $('#mensajeError').html(error.responseJSON.error);
+            $('#mensajeError').fadeIn();
+            setTimeout(function () {
+                $('#mensajeError').fadeOut();
+            }, 5000);
+        }
+    });
+};
+
 $("#contenedorLayout").on("submit", "#formularioIniciarPartida", function (e) {
     e.preventDefault();
 
@@ -72,7 +143,8 @@ let GuardarTurno = function (idGanador) {
         data: { IdPartida: IdPartida, Ganador: idGanador },
         success: function (data) {
             if (data.finPartida) {
-                alerta("El ganador de esta partida fue: " + data.ganador + ", se iniciara una nueva partida con nuevos jugadores.", "Fin partida", function () { location.reload(); })
+                Confirmar("El ganador de esta partida fue: " + data.ganador + ", se iniciara una nueva partida con nuevos jugadores.", "Fin partida", function () { location.reload(); }, EliminarTurnosPartida)
+                alerta( )
             }
             else {
                 $('#mensajeInfo').html("Aun no tenemos un ganador de la partida.");
@@ -92,40 +164,4 @@ let GuardarTurno = function (idGanador) {
             }, 5000);
         }
     });
-};
-
-let IniciarNuevaRonda = function (urlIniciarRonda) {
-    debugger;
-    $.ajax({
-        url: urlIniciarRonda,
-        type: "Get",
-        success: function (data) {
-            debugger;
-            $("#contenedorLayout").html(data);
-        },
-        error: function (error) {
-            debugger;
-            $('#mensajeError').html(error.responseJSON.error);
-            $('#mensajeError').fadeIn();
-            setTimeout(function () {
-                $('#mensajeError').fadeOut();
-            }, 5000);
-        }
-    });
-};
-
-let alerta = function (message, title, cb, type) {
-    if (typeof swal !== 'undefined') {
-        swal.fire({
-            title: title || '',
-            text: message,
-            icon: type || null,
-            //icon: type,//"warning", "error", "success" and "info".
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                cb();
-            }
-        });
-    }
 };

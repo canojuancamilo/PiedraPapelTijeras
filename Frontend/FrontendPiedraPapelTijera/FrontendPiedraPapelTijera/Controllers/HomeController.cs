@@ -93,6 +93,27 @@ namespace FrontendPiedraPapelTijera.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("EliminarTurnosPartida/{idPartida}")]
+        public async Task<IActionResult> EliminarTurnosPartida(int idPartida)
+        {
+            try
+            {
+                await _piedraPapelTijeraService.EliminarTurnosPartida(idPartida);
+
+                List<JugadorViewModel> jugadores = new List<JugadorViewModel>(){
+                        new JugadorViewModel() { IdPartida = idPartida, }
+                };
+
+                return PartialView("_Partida", jugadores);
+            }
+            catch (Exception ex)
+            {
+                _manejoErrorService.Error(ex.Message);
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -13,14 +13,11 @@ namespace FrontendPiedraPapelTijera.Repositories
     {
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
-        private readonly IManejoErrorService _manejoErrorService;
 
-        public PiedraPapelTijeraRepository(HttpClient httpClient, IConfiguration configuration, 
-            IManejoErrorService manejoErrorService)
+        public PiedraPapelTijeraRepository(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _configuration = configuration;
-            _manejoErrorService = manejoErrorService;
         }
 
         private string BaseUrl => $"{_configuration.GetValue<string>("BackendApi:Url")}/Api/PiedraPapelTijera";
@@ -47,11 +44,9 @@ namespace FrontendPiedraPapelTijera.Repositories
                 if (ex.StatusCode == HttpStatusCode.BadRequest)
                 {
                     string error = await response.Content.ReadAsStringAsync();
-                    _manejoErrorService.Error(error);
                     throw new InvalidOperationException(error);
                 }
 
-                _manejoErrorService.Error(ex.Message);
                 throw;
             }
         }
@@ -72,11 +67,9 @@ namespace FrontendPiedraPapelTijera.Repositories
                 if (ex.StatusCode == HttpStatusCode.BadRequest)
                 {
                     string error = await response.Content.ReadAsStringAsync();
-                    _manejoErrorService.Error(error);
                     throw new InvalidOperationException(error);
                 }
 
-                _manejoErrorService.Error(ex.Message);
                 throw;
             }
         }
@@ -103,10 +96,30 @@ namespace FrontendPiedraPapelTijera.Repositories
                 if (ex.StatusCode == HttpStatusCode.BadRequest)
                 {
                     string error = await response.Content.ReadAsStringAsync();
-                    _manejoErrorService.Error(error);
                     throw new InvalidOperationException(error);
                 }
-                _manejoErrorService.Error(ex.Message);
+
+                throw;
+            }
+        }
+
+        public async Task EliminarTurnosPartida(int IdPartida)
+        {
+            HttpResponseMessage response = new HttpResponseMessage() { };
+
+            try
+            {
+                response = await _httpClient.DeleteAsync($"{BaseUrl}/EliminarTurnosPartida/{IdPartida}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    string error = await response.Content.ReadAsStringAsync();
+                    throw new InvalidOperationException(error);
+                }
+
                 throw;
             }
         }

@@ -4,33 +4,33 @@ namespace BackendPiendraPapelTijeras.Core.Service
 {
     public class ManejoErroresService : IManejoErrorService
     {
-        private readonly IManejoErrorService _manejoErroresService;
+        private readonly IManejoErrorRepository _manejoErroresRepository;
 
-        public ManejoErroresService(IManejoErrorService manejoErroresService)
+        public ManejoErroresService(IManejoErrorRepository manejoErroresRepository)
         {
-            _manejoErroresService = manejoErroresService;
+            _manejoErroresRepository = manejoErroresRepository;
         }
 
         public void Debug(string mensaje)
         {
-            _manejoErroresService.Debug(mensaje);
+            _manejoErroresRepository.Debug(mensaje);
         }
 
         public void Error(string mensaje)
         {
-            _manejoErroresService.Error(mensaje);
+            _manejoErroresRepository.Error(mensaje);
 
         }
 
         public void Information(string mensaje)
         {
-            _manejoErroresService.Information(mensaje);
+            _manejoErroresRepository.Information(mensaje);
 
         }
 
         public void Warning(string mensaje)
         {
-            _manejoErroresService.Warning(mensaje);
+            _manejoErroresRepository.Warning(mensaje);
         }
     }
 }

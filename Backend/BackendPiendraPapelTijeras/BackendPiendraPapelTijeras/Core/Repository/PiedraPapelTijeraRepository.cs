@@ -76,8 +76,7 @@ namespace BackendPiendraPapelTijeras.Core.Repository
             {
                 IdPartida = idPartida,
                 IdJugadorGanador = idJugadorGanador,
-                FechaRegistro = DateTime.Now,
-                Partida = new Partida() 
+                FechaRegistro = DateTime.Now
             });
 
             _dbContext.SaveChanges();

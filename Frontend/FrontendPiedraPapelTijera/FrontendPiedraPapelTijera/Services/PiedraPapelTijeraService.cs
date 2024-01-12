@@ -27,5 +27,10 @@ namespace FrontendPiedraPapelTijera.Services
         {
             return await _piedraPapelTijeraRepository.RegistrarTurno(IdPartida, IdJugadorGanador);
         }
+
+        public async Task EliminarTurnosPartida(int IdPartida)
+        {
+            await _piedraPapelTijeraRepository.EliminarTurnosPartida(IdPartida);
+        }
     }
 }

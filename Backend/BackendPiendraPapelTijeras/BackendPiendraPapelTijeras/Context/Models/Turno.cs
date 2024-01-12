@@ -21,7 +21,7 @@ namespace BackendPiendraPapelTijeras.Context.Models
         /// <summary>
         /// Obtiene o establece la referencia a la partida a la que pertenece el turno.
         /// </summary>
-        public required Partida Partida { get; set; }
+        public Partida Partida { get; set; }
 
         /// <summary>
         /// Obtiene o establece el identificador único del jugador ganador, o null si no hay ganador.
