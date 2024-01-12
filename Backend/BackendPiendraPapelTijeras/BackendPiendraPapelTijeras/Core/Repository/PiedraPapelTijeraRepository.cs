@@ -12,6 +12,10 @@ namespace BackendPiendraPapelTijeras.Core.Repository
     {
         private readonly AplicationBdContext _dbContext;
 
+        /// <summary>
+        /// Constructor de la clase <see cref="PiedraPapelTijeraRepository"/>.
+        /// </summary>
+        /// <param name="dbContext">Instancia del contexto de la base de datos de la aplicación.</param>
         public PiedraPapelTijeraRepository(AplicationBdContext dbContext)
         {
             _dbContext = dbContext;
@@ -72,7 +76,8 @@ namespace BackendPiendraPapelTijeras.Core.Repository
             {
                 IdPartida = idPartida,
                 IdJugadorGanador = idJugadorGanador,
-                FechaRegistro = DateTime.Now
+                FechaRegistro = DateTime.Now,
+                Partida = new Partida() 
             });
 
             _dbContext.SaveChanges();

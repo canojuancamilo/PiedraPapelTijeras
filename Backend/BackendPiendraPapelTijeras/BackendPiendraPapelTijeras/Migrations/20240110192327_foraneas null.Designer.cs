@@ -13,7 +13,7 @@ namespace BackendPiendraPapelTijeras.Migrations
 {
     [DbContext(typeof(AplicationBdContext))]
     [Migration("20240110192327_foraneas null")]
-    partial class foraneasnull
+    partial class Foraneasnull
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

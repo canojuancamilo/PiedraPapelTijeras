@@ -5,7 +5,7 @@
 namespace BackendPiendraPapelTijeras.Migrations
 {
     /// <inheritdoc />
-    public partial class migraciondemodelos : Migration
+    public partial class Migraciondemodelos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

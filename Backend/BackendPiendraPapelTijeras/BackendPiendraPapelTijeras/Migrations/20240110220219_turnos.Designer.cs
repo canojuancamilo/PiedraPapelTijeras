@@ -13,7 +13,7 @@ namespace BackendPiendraPapelTijeras.Migrations
 {
     [DbContext(typeof(AplicationBdContext))]
     [Migration("20240110220219_turnos")]
-    partial class turnos
+    partial class Turnos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

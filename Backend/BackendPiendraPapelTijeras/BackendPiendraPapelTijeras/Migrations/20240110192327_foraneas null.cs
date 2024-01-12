@@ -5,7 +5,7 @@
 namespace BackendPiendraPapelTijeras.Migrations
 {
     /// <inheritdoc />
-    public partial class foraneasnull : Migration
+    public partial class Foraneasnull : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

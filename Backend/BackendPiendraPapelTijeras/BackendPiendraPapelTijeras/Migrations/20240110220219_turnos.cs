@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BackendPiendraPapelTijeras.Migrations
 {
     /// <inheritdoc />
-    public partial class turnos : Migration
+    public partial class Turnos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
