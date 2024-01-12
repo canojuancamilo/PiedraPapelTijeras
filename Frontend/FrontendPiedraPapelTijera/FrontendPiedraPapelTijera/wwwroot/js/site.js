@@ -5,6 +5,14 @@
 
 let opcionesJugador = [];
 
+let ManejarError = function (Mensaje) {
+    $('#mensajeError').html(Mensaje);
+    $('#mensajeError').fadeIn();
+    setTimeout(function () {
+        $('#mensajeError').fadeOut();
+    }, 5000);
+};
+
 let EliminarTurnosPartida = function () {
     let urlFormEliminarTurno = $("#urlEliminarTurnos").val();
     MostrarSpinner();
@@ -17,11 +25,7 @@ let EliminarTurnosPartida = function () {
             OcultarSpinner();
         },
         error: function (error) {
-            $('#mensajeError').html(error.responseJSON.error);
-            $('#mensajeError').fadeIn();
-            setTimeout(function () {
-                $('#mensajeError').fadeOut();
-            }, 5000);
+            ManejarError(error.responseJSON.error);
             OcultarSpinner();
         }
     });
@@ -75,11 +79,7 @@ let IniciarNuevaRonda = function (urlIniciarRonda) {
             OcultarSpinner();
         },
         error: function (error) {
-            $('#mensajeError').html(error.responseJSON.error);
-            $('#mensajeError').fadeIn();
-            setTimeout(function () {
-                $('#mensajeError').fadeOut();
-            }, 5000);
+            ManejarError(error.responseJSON.error);
             OcultarSpinner();
         }
     });
@@ -112,12 +112,7 @@ $("#contenedorLayout").on("submit", "#formularioIniciarPartida", function (e) {
             },
             error: function (error) {
                 $("#iniciarPartidaBtn").prop('disabled', false).html('Iniciar partida');
-                $('#mensajeError').html(error.responseJSON.error);
-
-                $('#mensajeError').fadeIn();
-                setTimeout(function () {
-                    $('#mensajeError').fadeOut();
-                }, 5000);
+                ManejarError(error.responseJSON.error);
                 OcultarSpinner();
             }
         });
@@ -184,13 +179,9 @@ let GuardarTurno = function (idGanador) {
                 OcultarSpinner();
             },
             error: function (error) {
-                $('#mensajeError').html(error.responseJSON.error);
-                $('#mensajeError').fadeIn();
-                setTimeout(function () {
-                    $('#mensajeError').fadeOut();
-                }, 5000);
+                ManejarError(error.responseJSON.error);
                 OcultarSpinner();
             }
         });
-    }, 1000);    
+    }, 1000);
 };
