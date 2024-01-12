@@ -7,12 +7,12 @@ namespace FrontendPiedraPapelTijera.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IManejoErrorService _manejoErrorService;
         private readonly IPiedraPapelTijeraService _piedraPapelTijeraService;
 
-        public HomeController(ILogger<HomeController> logger, IPiedraPapelTijeraService piedraPapelTijeraService)
+        public HomeController( IPiedraPapelTijeraService piedraPapelTijeraService, IManejoErrorService manejoErrorService)
         {
-            _logger = logger;
+            _manejoErrorService = manejoErrorService;
             _piedraPapelTijeraService = piedraPapelTijeraService;
         }
 
@@ -35,6 +35,7 @@ namespace FrontendPiedraPapelTijera.Controllers
             }
             catch (Exception ex) 
             {
+                _manejoErrorService.Error(ex.Message);
                 return BadRequest(new { error = ex.Message });
             }
         }
@@ -50,6 +51,7 @@ namespace FrontendPiedraPapelTijera.Controllers
             }
             catch (Exception ex)
             {
+                _manejoErrorService.Error(ex.Message);
                 return BadRequest(new { error = ex.Message });
             }
         }
@@ -67,6 +69,7 @@ namespace FrontendPiedraPapelTijera.Controllers
             }
             catch (Exception ex)
             {
+                _manejoErrorService.Error(ex.Message);
                 return BadRequest(new { error = ex.Message });
             }
         }
@@ -85,6 +88,7 @@ namespace FrontendPiedraPapelTijera.Controllers
             }
             catch (Exception ex)
             {
+                _manejoErrorService.Error(ex.Message);
                 return BadRequest(new { error = ex.Message });
             }
         }

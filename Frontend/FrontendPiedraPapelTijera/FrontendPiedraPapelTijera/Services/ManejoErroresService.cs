@@ -1,12 +1,12 @@
-﻿using BackendPiendraPapelTijeras.Core.Interface.Services;
+﻿using FrontendPiedraPapelTijera.Interfaces;
 
 namespace BackendPiendraPapelTijeras.Core.Service
 {
-    public class ManejoErroresService : IManejoErroresService
+    public class ManejoErroresService : IManejoErrorService
     {
-        private readonly IManejoErroresService _manejoErroresService;
+        private readonly IManejoErrorService _manejoErroresService;
 
-        public ManejoErroresService(IManejoErroresService manejoErroresService)
+        public ManejoErroresService(IManejoErrorService manejoErroresService)
         {
             _manejoErroresService = manejoErroresService;
         }

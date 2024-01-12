@@ -13,11 +13,14 @@ namespace FrontendPiedraPapelTijera.Repositories
     {
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
+        private readonly IManejoErrorService _manejoErrorService;
 
-        public PiedraPapelTijeraRepository(HttpClient httpClient, IConfiguration configuration)
+        public PiedraPapelTijeraRepository(HttpClient httpClient, IConfiguration configuration, 
+            IManejoErrorService manejoErrorService)
         {
             _httpClient = httpClient;
             _configuration = configuration;
+            _manejoErrorService = manejoErrorService;
         }
 
         private string BaseUrl => $"{_configuration.GetValue<string>("BackendApi:Url")}/Api/PiedraPapelTijera";
@@ -43,9 +46,12 @@ namespace FrontendPiedraPapelTijera.Repositories
             {
                 if (ex.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    throw new InvalidOperationException(await response.Content.ReadAsStringAsync());
+                    string error = await response.Content.ReadAsStringAsync();
+                    _manejoErrorService.Error(error);
+                    throw new InvalidOperationException(error);
                 }
 
+                _manejoErrorService.Error(ex.Message);
                 throw;
             }
         }
@@ -65,9 +71,12 @@ namespace FrontendPiedraPapelTijera.Repositories
             {
                 if (ex.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    throw new InvalidOperationException(await response.Content.ReadAsStringAsync());
+                    string error = await response.Content.ReadAsStringAsync();
+                    _manejoErrorService.Error(error);
+                    throw new InvalidOperationException(error);
                 }
 
+                _manejoErrorService.Error(ex.Message);
                 throw;
             }
         }
@@ -93,9 +102,11 @@ namespace FrontendPiedraPapelTijera.Repositories
             {
                 if (ex.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    throw new InvalidOperationException(await response.Content.ReadAsStringAsync());
+                    string error = await response.Content.ReadAsStringAsync();
+                    _manejoErrorService.Error(error);
+                    throw new InvalidOperationException(error);
                 }
-
+                _manejoErrorService.Error(ex.Message);
                 throw;
             }
         }
